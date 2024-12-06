@@ -12,13 +12,13 @@ export const {
   signOut,
 } = NextAuth({
   callbacks: {
-    async signIn({ user }) {
-      const existingUser = await getUserById(user?.id as string);
-      if (!existingUser || !existingUser?.emailVerified) {
-        return false;
-      }
-      return true;
-    },
+    // async signIn({ user }) {
+    //   const existingUser = await getUserById(user?.id as string);
+    //   if (!existingUser || !existingUser?.emailVerified) {
+    //     return false;
+    //   }
+    //   return true;
+    // },
     async session({ token, session }) {
       if (session.user && token.sub) {
         session.user.id = token.sub;
