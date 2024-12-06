@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3333",
-    "build": "next build",
+    "build": "next build -p 3333",
     "start": "next start -p 3333",
-    "lint": "next lint"
+    "lint": "next lint -p 3333"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.0",
