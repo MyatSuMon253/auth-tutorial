@@ -12,19 +12,23 @@ export const {
 } = NextAuth({
   callbacks: {
     async session({ token, session }) {
-
       if (session.user && token.sub) {
         session.user.id = token.sub;
+        session.user.customField = token.customField
       }
+
+      console.log("session", session);
       return session;
     },
+
     async jwt({ token }) {
       if (!token.sub) return token;
-
       const existingUser = await getUserById(token.sub);
       if (!existingUser) return token;
-
+      token.customField = "test";
       token.role = existingUser.role;
+      console.log("token", token);
+      
       return token;
     },
   },
