@@ -35,7 +35,7 @@ export const {
       }
 
       // TODO: Add 2FA check
-      
+
       return true;
     },
     async session({ token, session }) {
