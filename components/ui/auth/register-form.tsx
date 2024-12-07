@@ -51,7 +51,6 @@ const RegisterForm = () => {
       headerLabel="Create an account"
       backButtonLabel="Already have an account?"
       backButtonHref="/login"
-      showSocial
     >
       <Form {...form}>
         <form

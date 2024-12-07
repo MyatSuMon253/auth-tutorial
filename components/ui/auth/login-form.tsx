@@ -15,20 +15,23 @@ import {
 import { Input } from "@/components/ui/input";
 import { LoginSchema } from "@/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import CardWrapper from "./card-wrapper";
-import { useSearchParams } from "next/navigation";
-
 
 const LoginForm = () => {
-  const searchParams = useSearchParams()
-  const urlError = searchParams.get('error') === "OAuthAccountNotLinked" ? "Email already in use with different provider" : ''
+  const searchParams = useSearchParams();
+  const urlError =
+    searchParams.get("error") === "OAuthAccountNotLinked"
+      ? "Email already in use with different provider"
+      : "";
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
-  
+
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -38,8 +41,8 @@ const LoginForm = () => {
   });
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    setError("")
-    setSuccess("")
+    setError("");
+    setSuccess("");
 
     startTransition(() => {
       login(values).then((data) => {
@@ -89,12 +92,15 @@ const LoginForm = () => {
                   <FormControl>
                     <Input {...field} placeholder="******" type="password" />
                   </FormControl>
+                  <Button size="sm" variant="link" asChild className="px-0">
+                    <Link href="/reset">Forgot password</Link>
+                  </Button>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-          <FormError message={error} />
+          <FormError message={error || urlError} />
           <FormSuccess message={success} />
           <Button type="submit" className="w-full" disabled={isPending}>
             Login

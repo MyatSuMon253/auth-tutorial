@@ -44,7 +44,6 @@ const NewVerificationForm = () => {
       headerLabel="Confirming your verification"
       backButtonLabel="Back to login"
       backButtonHref="/login"
-      showSocial={false}
     >
       <div className="w-full flex items-center justify-center">
         {!success && !error && <CircleLoader color="#3B82F6" />}
