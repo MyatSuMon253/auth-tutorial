@@ -61,6 +61,10 @@ export const {
         session.user.role = token.role as UserRole;
       }
 
+      if (session.user) {
+        session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
+      }
+
       console.log("session", session);
       return session;
     },
@@ -74,6 +78,7 @@ export const {
 
       token.customField = "test";
       token.role = existingUser.role;
+      token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
       console.log("token", token);
 
       return token;
