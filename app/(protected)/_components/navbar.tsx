@@ -18,6 +18,15 @@ const Navbar = () => {
           <Link href="/server">Server</Link>
         </Button>
         <Button
+          variant={pathname === "/client" ? "default" : "outline"}
+          asChild
+        >
+          <Link href="/client">Client</Link>
+        </Button>
+        <Button variant={pathname === "/admin" ? "default" : "outline"} asChild>
+          <Link href="/admin">Admin</Link>
+        </Button>
+        <Button
           variant={pathname === "/settings" ? "default" : "outline"}
           asChild
         >
