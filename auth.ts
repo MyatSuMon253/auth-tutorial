@@ -62,14 +62,16 @@ export const {
       }
 
       if (session.user) {
+        session.user.name = token.name as string;
+        session.user.email = token.email as string;
         session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
       }
 
-      console.log("session", session);
       return session;
     },
 
     async jwt({ token }) {
+      console.log("I'm being called again");
       if (!token.sub) return token;
 
       const existingUser = await getUserById(token.sub);
@@ -77,9 +79,10 @@ export const {
       if (!existingUser) return token;
 
       token.customField = "test";
+      token.name = existingUser.name;
+      token.email = existingUser.email;
       token.role = existingUser.role;
       token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
-      console.log("token", token);
 
       return token;
     },
