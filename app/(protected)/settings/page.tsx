@@ -39,7 +39,6 @@ const SettingsPage = () => {
   });
 
   const onSubmit = (values: z.infer<typeof SettingsSchema>) => {
-    console.log("on submit");
     startTransaction(() => {
       settings(values)
         .then((data) => {
@@ -57,6 +56,7 @@ const SettingsPage = () => {
     });
   };
 
+  console.log("err", form.formState.errors);
   return (
     <Card className="w-[600px]">
       <CardHeader>
