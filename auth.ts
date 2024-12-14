@@ -1,6 +1,7 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth from "next-auth";
 import authConfig from "./auth.config";
+import { getAccountByUserId } from "./data/account";
 import { getTwoFactorConfirmationByUserId } from "./data/two-factor-confirmation";
 import { getUserById } from "./data/user";
 import { db } from "./lib/db";
@@ -19,7 +20,7 @@ export const {
   events: {
     async linkAccount({ user }) {
       await db.user.update({
-        where: { id: user.id },
+        where: { id: user.id }, 
         data: { emailVerified: new Date() },
       });
     },
@@ -65,6 +66,7 @@ export const {
         session.user.name = token.name as string;
         session.user.email = token.email as string;
         session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
+        session.user.isOAuth = token.isOAuth as boolean;
       }
 
       return session;
@@ -78,6 +80,9 @@ export const {
 
       if (!existingUser) return token;
 
+      const existingAccount = await getAccountByUserId(existingUser.id);
+
+      token.iSOAuth = !!existingAccount;
       token.customField = "test";
       token.name = existingUser.name;
       token.email = existingUser.email;
