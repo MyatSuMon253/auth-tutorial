@@ -17,15 +17,12 @@ import { Switch } from "@/components/ui/switch";
 import useCurrentUser from "@/hooks/use-current-user";
 import { SettingsSchema } from "@/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSession } from "next-auth/react";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const SettingsPage = () => {
   const user = useCurrentUser();
-
-  const { update } = useSession();
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const [isPending, startTransaction] = useTransition();
@@ -42,6 +39,7 @@ const SettingsPage = () => {
   });
 
   const onSubmit = (values: z.infer<typeof SettingsSchema>) => {
+    console.log("on submit");
     startTransaction(() => {
       settings(values)
         .then((data) => {
@@ -50,7 +48,6 @@ const SettingsPage = () => {
           }
 
           if (data.success) {
-            update();
             setSuccess(data.success);
           }
         })
@@ -164,7 +161,7 @@ const SettingsPage = () => {
             </div>
             <FormError message={error} />
             <FormError message={success} />
-            <Button type="submit" disabled={isPending}>
+            <Button disabled={isPending} type="submit">
               Save
             </Button>
           </form>

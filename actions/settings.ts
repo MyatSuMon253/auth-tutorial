@@ -1,5 +1,6 @@
 "use server";
 
+import { update } from "@/auth";
 import { getUserByEmail, getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
@@ -68,11 +69,19 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
     values.newPassword = undefined;
   }
 
-  await db.user.update({
+  const updatedUser = await db.user.update({
     where: {
       id: dbUser.id,
     },
     data: { ...values },
+  });
+
+  update({
+    user: {
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isTwoFactorEnabled: updatedUser.isTwoFactorEnabled,
+    },
   });
 
   return { success: "Settings updated!" };
