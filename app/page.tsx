@@ -10,7 +10,7 @@ const font = Poppins({
 
 export default function Home() {
   return (
-    <main className="flex h-full flex-col items-center justify-center bg-gradient-to-r from-sky-400 to to-blue-500">
+    <main className="flex h-full flex-col items-center justify-center bg-gradient-to-br from-purple-400 to-sky-500">
       <div className="space-y-6 text-center">
         <h1
           className={cn(
@@ -22,7 +22,7 @@ export default function Home() {
         </h1>
         <p className="text-white text-lg">A simple authentication service</p>
         <div>
-          <LoginButton>
+          <LoginButton mode="modal" asChild>
             <Button variant="secondary" size="lg">
               Sign in
             </Button>
