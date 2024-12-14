@@ -60,8 +60,6 @@ const SettingsPage = () => {
     });
   };
 
-  console.log(user);
-
   return (
     <Card className="w-[600px]">
       <CardHeader>
@@ -87,57 +85,61 @@ const SettingsPage = () => {
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="john.doe@example.com"
-                        {...field}
-                        type="email"
-                        disabled={isPending}
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="******"
-                        {...field}
-                        disabled={isPending}
-                        type="password"
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="newPassword"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>New Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="******"
-                        {...field}
-                        disabled={isPending}
-                        type="password"
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
+              {user?.isOAuth === false && (
+                <>
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="john.doe@example.com"
+                            {...field}
+                            type="email"
+                            disabled={isPending}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Password</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="******"
+                            {...field}
+                            disabled={isPending}
+                            type="password"
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="newPassword"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>New Password</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="******"
+                            {...field}
+                            disabled={isPending}
+                            type="password"
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </>
+              )}
               <FormField
                 control={form.control}
                 name="isTwoFactorEnabled"
